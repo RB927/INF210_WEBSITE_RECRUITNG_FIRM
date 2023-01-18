@@ -22,43 +22,26 @@ public class OffreemploiDAO{
 
     @PersistenceContext private EntityManager entityManager;
     
-    public void persist(Offreemploi transientInstance) {
-        logger.log(Level.INFO, "persisting Offreemploi instance");
-        try {
-            entityManager.persist(transientInstance);
-            logger.log(Level.INFO, "persist successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "persist failed", re);
-            throw re;
-        }
-    }
-    
-    public void remove(Offreemploi persistentInstance) {
-        logger.log(Level.INFO, "removing Offreemploi instance");
-        try {
-            entityManager.remove(persistentInstance);
-            logger.log(Level.INFO, "remove successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "remove failed", re);
-            throw re;
-        }
-    }
-    
-    public Offreemploi merge(Offreemploi detachedInstance) {
-        logger.log(Level.INFO, "merging Offreemploi instance");
-        try {
-            Offreemploi result = entityManager.merge(detachedInstance);
-            logger.log(Level.INFO, "merge successful");
-            return result;
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "merge failed", re);
-            throw re;
-        }
-    }
-    
+    public Offreemploi persist(Offreemploi Offreemploi) {
+		if (Offreemploi != null) {
+			entityManager.persist(Offreemploi);
+		}
+		return Offreemploi;
+	}
+
+	public Offreemploi update(Offreemploi Offreemploi) {
+		if (Offreemploi != null) {
+			entityManager.merge(Offreemploi);
+		}
+		return Offreemploi;
+	}
+
+	public void remove(Offreemploi Offreemploi) {
+		if ((Offreemploi != null) & (!entityManager.contains(Offreemploi))) {
+			Offreemploi sup = entityManager.merge(Offreemploi);
+			entityManager.remove(sup);
+		}
+	}
     public Offreemploi findById( int id) {
         logger.log(Level.INFO, "getting Offreemploi instance with id: " + id);
         try {

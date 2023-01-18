@@ -22,42 +22,28 @@ public class MessageoffreemploiDAO {
 
     @PersistenceContext private EntityManager entityManager;
     
-    public void persist(Messageoffreemploi transientInstance) {
-        logger.log(Level.INFO, "persisting Messageoffreemploi instance");
-        try {
-            entityManager.persist(transientInstance);
-            logger.log(Level.INFO, "persist successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "persist failed", re);
-            throw re;
-        }
-    }
+
     
-    public void remove(Messageoffreemploi persistentInstance) {
-        logger.log(Level.INFO, "removing Messageoffreemploi instance");
-        try {
-            entityManager.remove(persistentInstance);
-            logger.log(Level.INFO, "remove successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "remove failed", re);
-            throw re;
-        }
-    }
-    
-    public Messageoffreemploi merge(Messageoffreemploi detachedInstance) {
-        logger.log(Level.INFO, "merging Messageoffreemploi instance");
-        try {
-            Messageoffreemploi result = entityManager.merge(detachedInstance);
-            logger.log(Level.INFO, "merge successful");
-            return result;
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "merge failed", re);
-            throw re;
-        }
-    }
+    public Messageoffreemploi persist(Messageoffreemploi Messageoffreemploi) {
+		if (Messageoffreemploi != null) {
+			entityManager.persist(Messageoffreemploi);
+		}
+		return Messageoffreemploi;
+	}
+
+	public Messageoffreemploi update(Messageoffreemploi Messageoffreemploi) {
+		if (Messageoffreemploi != null) {
+			entityManager.merge(Messageoffreemploi);
+		}
+		return Messageoffreemploi;
+	}
+
+	public void remove(Messageoffreemploi Messageoffreemploi) {
+		if ((Messageoffreemploi != null) & (!entityManager.contains(Messageoffreemploi))) {
+			Messageoffreemploi sup = entityManager.merge(Messageoffreemploi);
+			entityManager.remove(sup);
+		}
+	}
     
     public Messageoffreemploi findById( int id) {
         logger.log(Level.INFO, "getting Messageoffreemploi instance with id: " + id);

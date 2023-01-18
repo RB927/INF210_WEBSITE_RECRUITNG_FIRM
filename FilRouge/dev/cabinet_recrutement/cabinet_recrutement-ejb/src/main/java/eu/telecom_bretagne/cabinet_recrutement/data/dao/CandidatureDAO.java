@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
+import jakarta.persistence.Query;
 /**
  * Home object for domain model class Candidature.
  * @see eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature
@@ -22,43 +22,7 @@ public class CandidatureDAO{
 
     @PersistenceContext private EntityManager entityManager;
     
-    public void persist(Candidature transientInstance) {
-        logger.log(Level.INFO, "persisting Candidature instance");
-        try {
-            entityManager.persist(transientInstance);
-            logger.log(Level.INFO, "persist successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "persist failed", re);
-            throw re;
-        }
-    }
-    
-    public void remove(Candidature persistentInstance) {
-        logger.log(Level.INFO, "removing Candidature instance");
-        try {
-            entityManager.remove(persistentInstance);
-            logger.log(Level.INFO, "remove successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "remove failed", re);
-            throw re;
-        }
-    }
-    
-    public Candidature merge(Candidature detachedInstance) {
-        logger.log(Level.INFO, "merging Candidature instance");
-        try {
-            Candidature result = entityManager.merge(detachedInstance);
-            logger.log(Level.INFO, "merge successful");
-            return result;
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "merge failed", re);
-            throw re;
-        }
-    }
-    
+
     public Candidature findById( int id) {
         logger.log(Level.INFO, "getting Candidature instance with id: " + id);
         try {
@@ -71,5 +35,25 @@ public class CandidatureDAO{
             throw re;
         }
     }
+    public Candidature persist(Candidature Candidature) {
+		if (Candidature != null) {
+			entityManager.persist(Candidature);
+		}
+		return Candidature;
+	}
+
+	public Candidature update(Candidature Candidature) {
+		if (Candidature != null) {
+			entityManager.merge(Candidature);
+		}
+		return Candidature;
+	}
+
+	public void remove(Candidature Candidature) {
+		if ((Candidature != null) & (!entityManager.contains(Candidature))) {
+			Candidature sup = entityManager.merge(Candidature);
+			entityManager.remove(sup);
+		}
+	}
 }
 

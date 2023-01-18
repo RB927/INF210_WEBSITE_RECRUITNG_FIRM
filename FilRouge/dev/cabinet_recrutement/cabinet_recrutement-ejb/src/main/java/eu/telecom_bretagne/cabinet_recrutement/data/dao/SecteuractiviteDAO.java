@@ -22,43 +22,26 @@ public class SecteuractiviteDAO {
 
     @PersistenceContext private EntityManager entityManager;
     
-    public void persist(Secteuractivite transientInstance) {
-        logger.log(Level.INFO, "persisting Secteuractivite instance");
-        try {
-            entityManager.persist(transientInstance);
-            logger.log(Level.INFO, "persist successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "persist failed", re);
-            throw re;
-        }
-    }
-    
-    public void remove(Secteuractivite persistentInstance) {
-        logger.log(Level.INFO, "removing Secteuractivite instance");
-        try {
-            entityManager.remove(persistentInstance);
-            logger.log(Level.INFO, "remove successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "remove failed", re);
-            throw re;
-        }
-    }
-    
-    public Secteuractivite merge(Secteuractivite detachedInstance) {
-        logger.log(Level.INFO, "merging Secteuractivite instance");
-        try {
-            Secteuractivite result = entityManager.merge(detachedInstance);
-            logger.log(Level.INFO, "merge successful");
-            return result;
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "merge failed", re);
-            throw re;
-        }
-    }
-    
+     public Secteuractivite persist(Secteuractivite Secteuractivite) {
+		if (Secteuractivite != null) {
+			entityManager.persist(Secteuractivite);
+		}
+		return Secteuractivite;
+	}
+
+	public Secteuractivite update(Secteuractivite Secteuractivite) {
+		if (Secteuractivite != null) {
+			entityManager.merge(Secteuractivite);
+		}
+		return Secteuractivite;
+	}
+
+	public void remove(Secteuractivite Secteuractivite) {
+		if ((Secteuractivite != null) & (!entityManager.contains(Secteuractivite))) {
+			Secteuractivite sup = entityManager.merge(Secteuractivite);
+			entityManager.remove(sup);
+		}
+	}
     public Secteuractivite findById( int id) {
         logger.log(Level.INFO, "getting Secteuractivite instance with id: " + id);
         try {

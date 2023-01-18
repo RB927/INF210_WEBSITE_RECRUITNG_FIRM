@@ -2,11 +2,6 @@ package eu.telecom_bretagne.cabinet_recrutement.data.dao;
 
 import java.util.List;
 
-// import javax.ejb.LocalBean;
-// import javax.ejb.Stateless;
-// import javax.persistence.EntityManager;
-// import javax.persistence.PersistenceContext;
-// import javax.persistence.Query;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -51,14 +46,25 @@ public class EntrepriseDAO
     
     return (List<Entreprise>)l;
   }
-  //-----------------------------------------------------------------------------
-public Entreprise persist(Entreprise entreprise){
-    
-  
+	public Entreprise persist(Entreprise entreprise) {
+		if (entreprise != null) {
 			entityManager.persist(entreprise);
+		}
 		return entreprise;
+	}
 
-}
+	public Entreprise update(Entreprise entreprise) {
+		if (entreprise != null) {
+			entityManager.merge(entreprise);
+		}
+		return entreprise;
+	}
 
+	public void remove(Entreprise entreprise) {
+		if ((entreprise != null) & (!entityManager.contains(entreprise))) {
+			Entreprise sup = entityManager.merge(entreprise);
+			entityManager.remove(sup);
+		}
+	}
 
 }

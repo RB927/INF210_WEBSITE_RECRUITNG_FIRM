@@ -22,42 +22,29 @@ public class MessagecandidatureDAO {
 
     @PersistenceContext private EntityManager entityManager;
     
-    public void persist(Messagecandidature transientInstance) {
-        logger.log(Level.INFO, "persisting Messagecandidature instance");
-        try {
-            entityManager.persist(transientInstance);
-            logger.log(Level.INFO, "persist successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "persist failed", re);
-            throw re;
-        }
-    }
+ 
     
-    public void remove(Messagecandidature persistentInstance) {
-        logger.log(Level.INFO, "removing Messagecandidature instance");
-        try {
-            entityManager.remove(persistentInstance);
-            logger.log(Level.INFO, "remove successful");
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "remove failed", re);
-            throw re;
-        }
-    }
-    
-    public Messagecandidature merge(Messagecandidature detachedInstance) {
-        logger.log(Level.INFO, "merging Messagecandidature instance");
-        try {
-            Messagecandidature result = entityManager.merge(detachedInstance);
-            logger.log(Level.INFO, "merge successful");
-            return result;
-        }
-        catch (RuntimeException re) {
-            logger.log(Level.SEVERE, "merge failed", re);
-            throw re;
-        }
-    }
+
+    public Messagecandidature persist(Messagecandidature Messagecandidature) {
+		if (Messagecandidature != null) {
+			entityManager.persist(Messagecandidature);
+		}
+		return Messagecandidature;
+	}
+
+	public Messagecandidature update(Messagecandidature Messagecandidature) {
+		if (Messagecandidature != null) {
+			entityManager.merge(Messagecandidature);
+		}
+		return Messagecandidature;
+	}
+
+	public void remove(Messagecandidature Messagecandidature) {
+		if ((Messagecandidature != null) & (!entityManager.contains(Messagecandidature))) {
+			Messagecandidature sup = entityManager.merge(Messagecandidature);
+			entityManager.remove(sup);
+		}
+	}
     
     public Messagecandidature findById( int id) {
         logger.log(Level.INFO, "getting Messagecandidature instance with id: " + id);
