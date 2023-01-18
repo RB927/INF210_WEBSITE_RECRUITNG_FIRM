@@ -54,8 +54,9 @@ public class EntrepriseDAO
   //-----------------------------------------------------------------------------
 public Entreprise persist(Entreprise entreprise){
     
-  EntityManager em = entreprise;
-  em.persist();
+  
+			entityManager.persist(entreprise);
+		return entreprise;
 
 }
 

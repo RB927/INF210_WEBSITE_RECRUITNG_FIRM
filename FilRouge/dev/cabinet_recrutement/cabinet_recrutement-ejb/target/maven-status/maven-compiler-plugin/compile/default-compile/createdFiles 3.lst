@@ -1,0 +1,16 @@
+eu/telecom_bretagne/cabinet_recrutement/data/model/Secteuractivite.class
+eu/telecom_bretagne/cabinet_recrutement/service/IServiceEntreprise.class
+eu/telecom_bretagne/cabinet_recrutement/data/dao/CandidatureDAO.class
+eu/telecom_bretagne/cabinet_recrutement/data/dao/MessageoffreemploiDAO.class
+eu/telecom_bretagne/cabinet_recrutement/data/model/Messageoffreemploi.class
+eu/telecom_bretagne/cabinet_recrutement/data/dao/OffreemploiDAO.class
+eu/telecom_bretagne/cabinet_recrutement/data/model/Entreprise.class
+eu/telecom_bretagne/cabinet_recrutement/data/model/Offreemploi.class
+eu/telecom_bretagne/cabinet_recrutement/data/dao/EntrepriseDAO.class
+eu/telecom_bretagne/cabinet_recrutement/data/dao/MessagecandidatureDAO.class
+eu/telecom_bretagne/cabinet_recrutement/data/model/Candidature.class
+eu/telecom_bretagne/cabinet_recrutement/data/dao/NiveauqualificationDAO.class
+eu/telecom_bretagne/cabinet_recrutement/data/dao/SecteuractiviteDAO.class
+eu/telecom_bretagne/cabinet_recrutement/data/model/Messagecandidature.class
+eu/telecom_bretagne/cabinet_recrutement/data/model/Niveauqualification.class
+eu/telecom_bretagne/cabinet_recrutement/service/ServiceEntreprise.class
